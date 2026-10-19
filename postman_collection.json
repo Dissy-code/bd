@@ -28,14 +28,14 @@
       ]
     },
     {
-      "name": "GET /notes?crash=1 - 500 Internal Server Error",
+      "name": "GET /notes?id_user=abc - 400 Bad Request",
       "request": {
         "method": "GET",
         "url": {
-          "raw": "{{base_url}}/notes?crash=1",
+          "raw": "{{base_url}}/notes?id_user=abc",
           "host": ["{{base_url}}"],
           "path": ["notes"],
-          "query": [{ "key": "crash", "value": "1" }]
+          "query": [{ "key": "id_user", "value": "abc" }]
         }
       },
       "event": [
@@ -43,8 +43,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status code is 500', function () {",
-              "    pm.response.to.have.status(500);",
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
               "});",
               "pm.test('Body contains error message', function () {",
               "    pm.expect(pm.response.json()).to.have.property('error');",
@@ -81,5 +81,6 @@
   ],
   "variable": [
     { "key": "base_url", "value": "http://localhost:8000" }
-  ]
+  ],
+  "note": "Тест на 500 требует временно переименовать notes.json на сервере (например, через скрипт на стороне сервера) — Postman сам этого вызвать не может, поэтому отдельного пункта на 500 здесь нет."
 }
